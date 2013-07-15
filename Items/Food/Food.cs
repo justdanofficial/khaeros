@@ -26,6 +26,7 @@ namespace Server.Items
 		private Poison m_Poison;
         private Disease m_Disease;
 		private int m_FillFactor;
+	    bool shouldRot;
 
 		private int M_HitsBonus;
 		private int M_ManaBonus;
@@ -40,7 +41,11 @@ namespace Server.Items
 		
 		public virtual TimeSpan MoldTime{ get { return TimeSpan.FromHours( 7*8 ); } } // 7 IG days
 		public virtual TimeSpan RotTime{ get { return TimeSpan.FromHours( 11*8 ); } } // 11 IG days
-		
+
+	    DateTime m_TimeVendored = DateTime.Now;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public virtual DateTime TimeVendored { get { return m_TimeVendored; } set { m_TimeVendored = value; } }
+
 		private RotStage m_RotStage;
 		
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -135,9 +140,9 @@ namespace Server.Items
                 if (player.Feats.GetFeatLevel(FeatList.Cooking) > 2)
                 {
                     if (m_RotStage == RotStage.None)
-                        list.Add(1060847, "{0}\t{1}", "Time until moldy: ", GetTimeToMold());
+                        list.Add(1060848, "{0}\t{1}", "Time until moldy: ", GetTimeToMold());
                     else if (m_RotStage == RotStage.Moldy)
-                        list.Add(1060847, "{0}\t{1}", "Time until rotten:  ", GetTimeToRot());
+                        list.Add(1060848, "{0}\t{1}", "Time until rotten:  ", GetTimeToRot());
                 }
             }
 		}
@@ -163,13 +168,13 @@ namespace Server.Items
 		
 		public override void OnPlacedForSale( Mobile vendor )
 		{
-			RotTimeElapsed = DateTime.Now - Creation;
+		    TimeVendored = DateTime.Now;
 		}
 		
 		public override void OnRemovedFromSale( Mobile vendor )
 		{
-			Creation = DateTime.Now - RotTimeElapsed;
-			RotTimeElapsed = TimeSpan.Zero;
+		    TimeSpan vendored = DateTime.Now.Subtract(TimeVendored);
+		    Creation = Creation.Add(vendored);
 		}
 		
 		public virtual void CheckRot()

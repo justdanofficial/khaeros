@@ -341,6 +341,7 @@ namespace Server.Engines.Craft
                 base.HitsBonus = value;
             }
         }
+
         public override int ManaBonus
         {
             get

@@ -276,7 +276,7 @@ namespace Khaeros.Scripts.Khaeros.Mobiles.Unique_Monsters
 
         public class DamageField : Item
         {
-            public DamageField()
+            public DamageField() : base(13984)
             {
                 
             }
