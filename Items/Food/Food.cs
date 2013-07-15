@@ -406,7 +406,9 @@ namespace Server.Items
 		{
 			base.Serialize( writer );
 
-			writer.Write( (int) 8 ); // version
+			writer.Write( (int) 9 ); // version
+
+            writer.Write((DateTime) TimeVendored);
 
             writer.Write( (int) m_Disease );
 			
@@ -480,6 +482,11 @@ namespace Server.Items
                     m_Disease = (Disease)reader.ReadInt();
                     goto case 7;
                 }
+                case 9:
+			    {
+			        m_TimeVendored = reader.ReadDateTime();
+			        goto case 8;
+			    }
 			}
 		}
 	}
