@@ -140,9 +140,9 @@ namespace Server.Items
                 if (player.Feats.GetFeatLevel(FeatList.Cooking) > 2)
                 {
                     if (m_RotStage == RotStage.None)
-                        list.Add(1060848, "{0}\t{1}", "Time until moldy: ", GetTimeToMold());
+                        list.Add(1060847, "{0}\t{1}", "Time until moldy: ", GetTimeToMold());
                     else if (m_RotStage == RotStage.Moldy)
-                        list.Add(1060848, "{0}\t{1}", "Time until rotten:  ", GetTimeToRot());
+                        list.Add(1060847, "{0}\t{1}", "Time until rotten:  ", GetTimeToRot());
                 }
             }
 		}
