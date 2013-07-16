@@ -26,7 +26,7 @@ namespace Server.Items
 		private Poison m_Poison;
         private Disease m_Disease;
 		private int m_FillFactor;
-	    bool shouldRot;
+	    bool m_Vendored = false;
 
 		private int M_HitsBonus;
 		private int M_ManaBonus;
@@ -71,6 +71,13 @@ namespace Server.Items
 			get { return m_Poisoner; }
 			set { m_Poisoner = value; }
 		}
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public bool Vendored
+        {
+            get { return m_Vendored; }
+            set { m_Vendored = value; }
+        }
 
 		[CommandProperty( AccessLevel.GameMaster )]
 		public Poison Poison
@@ -168,6 +175,7 @@ namespace Server.Items
 		
 		public override void OnPlacedForSale( Mobile vendor )
 		{
+		    Vendored = true;
 		    TimeVendored = DateTime.Now;
 		}
 		
@@ -175,10 +183,14 @@ namespace Server.Items
 		{
 		    TimeSpan vendored = DateTime.Now.Subtract(TimeVendored);
 		    Creation = Creation.Add(vendored);
+		    Vendored = false;
 		}
 		
 		public virtual void CheckRot()
 		{
+            if (Vendored)
+                return;
+
 			if( RootParentEntity != null && RootParentEntity is PlayerVendor )
 			{
 				Timer.DelayCall(TimeSpan.FromHours( 1 ), new TimerStateCallback( RotCallback ), this );
@@ -408,6 +420,8 @@ namespace Server.Items
 
 			writer.Write( (int) 9 ); // version
 
+            writer.Write((bool) m_Vendored);
+
             writer.Write((DateTime) TimeVendored);
 
             writer.Write( (int) m_Disease );
@@ -486,6 +500,11 @@ namespace Server.Items
 			    {
 			        m_TimeVendored = reader.ReadDateTime();
 			        goto case 8;
+			    }
+                case 10:
+			    {
+			        m_Vendored = reader.ReadBool();
+			        goto case 9;
 			    }
 			}
 		}
