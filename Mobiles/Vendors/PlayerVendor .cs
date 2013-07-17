@@ -1856,6 +1856,11 @@ namespace Server.Mobiles
 
 				if ( setPrice )
 				{
+                    if (item is Food)
+                    {
+                        Food food = item as Food;
+                        food.Vendored = true;
+                    }
 					m_Vendor.SetVendorItem( item, price, description );
 				}
 				else
