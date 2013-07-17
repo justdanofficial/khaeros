@@ -189,9 +189,6 @@ namespace Server.Items
 		
 		public virtual void CheckRot()
 		{
-            if (Vendored)
-                return;
-
 			if( RootParentEntity != null && RootParentEntity is PlayerVendor )
 			{
 				Timer.DelayCall(TimeSpan.FromHours( 1 ), new TimerStateCallback( RotCallback ), this );
