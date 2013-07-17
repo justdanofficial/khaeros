@@ -500,8 +500,8 @@ namespace Server.Items
 			        {
                         //Console.WriteLine("Time: "+reader.ReadDateTime().ToString());
                         //Console.WriteLine("Vendored: "+reader.ReadBool().ToString());
-			        m_TimeVendored = reader.ReadDateTime();
                     m_Vendored = reader.ReadBool();
+                    m_TimeVendored = reader.ReadDateTime();
                     CheckRot();
 			        goto case 8;
 			    }
