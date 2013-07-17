@@ -478,7 +478,6 @@ namespace Server.Items
 				case 5:
 				{
 					m_Creation = reader.ReadDateTime();
-					CheckRot();
 					goto case 4;
 				}
 				case 6:
@@ -500,6 +499,7 @@ namespace Server.Items
 			    {
 			        m_TimeVendored = reader.ReadDateTime();
                     m_Vendored = reader.ReadBool();
+                    CheckRot();
 			        goto case 8;
 			    }
 			}
