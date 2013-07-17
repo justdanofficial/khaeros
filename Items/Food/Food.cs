@@ -31,6 +31,7 @@ namespace Server.Items
 		private int M_HitsBonus;
 		private int M_ManaBonus;
 		private DateTime m_Creation;
+        DateTime m_TimeVendored;
 		private TimeSpan m_RotTimeElapsed = TimeSpan.Zero;
 		
 		[CommandProperty( AccessLevel.GameMaster )]
@@ -42,7 +43,6 @@ namespace Server.Items
 		public virtual TimeSpan MoldTime{ get { return TimeSpan.FromHours( 7*8 ); } } // 7 IG days
 		public virtual TimeSpan RotTime{ get { return TimeSpan.FromHours( 11*8 ); } } // 11 IG days
 
-	    DateTime m_TimeVendored = DateTime.Now;
         [CommandProperty(AccessLevel.GameMaster)]
         public virtual DateTime TimeVendored { get { return m_TimeVendored; } set { m_TimeVendored = value; } }
 
@@ -496,9 +496,11 @@ namespace Server.Items
                     goto case 7;
                 }
                 case 9:
-			    {
-			        m_TimeVendored = reader.ReadDateTime();
-                    m_Vendored = reader.ReadBool();
+			        {
+                        Console.WriteLine(reader.ReadDateTime().ToString());
+                        Console.WriteLine(reader.ReadBool().ToString());
+			        //m_TimeVendored = reader.ReadDateTime();
+                    //m_Vendored = reader.ReadBool();
                     CheckRot();
 			        goto case 8;
 			    }
