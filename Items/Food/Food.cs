@@ -498,8 +498,6 @@ namespace Server.Items
                 }
                 case 9:
 			        {
-                        //Console.WriteLine("Time: "+reader.ReadDateTime().ToString());
-                        //Console.WriteLine("Vendored: "+reader.ReadBool().ToString());
                     m_Vendored = reader.ReadBool();
                     m_TimeVendored = reader.ReadDateTime();
                     CheckRot();
