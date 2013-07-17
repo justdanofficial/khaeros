@@ -487,7 +487,8 @@ namespace Server.Items
 				}
 				case 7:
 				{
-					m_RotTimeElapsed = reader.ReadTimeSpan(); 
+					//m_RotTimeElapsed = reader.ReadTimeSpan(); 
+				    reader.ReadString();
 					goto case 6;
 				}
                 case 8:
@@ -497,8 +498,8 @@ namespace Server.Items
                 }
                 case 9:
 			        {
-                        Console.WriteLine(reader.ReadDateTime().ToString());
-                        Console.WriteLine(reader.ReadBool().ToString());
+                        Console.WriteLine("Time: "+reader.ReadDateTime().ToString());
+                        Console.WriteLine("Vendored: "+reader.ReadBool().ToString());
 			        //m_TimeVendored = reader.ReadDateTime();
                     //m_Vendored = reader.ReadBool();
                     CheckRot();
