@@ -418,7 +418,7 @@ namespace Server.Items
 		{
 			base.Serialize( writer );
 
-			writer.Write( (int) 10 ); // version
+			writer.Write( (int) 9 ); // version
 
             writer.Write((bool) m_Vendored);
 
@@ -499,12 +499,8 @@ namespace Server.Items
                 case 9:
 			    {
 			        m_TimeVendored = reader.ReadDateTime();
+                    m_Vendored = reader.ReadBool();
 			        goto case 8;
-			    }
-                case 10:
-			    {
-			        m_Vendored = reader.ReadBool();
-			        goto case 9;
 			    }
 			}
 		}
