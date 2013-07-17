@@ -418,7 +418,7 @@ namespace Server.Items
 		{
 			base.Serialize( writer );
 
-			writer.Write( (int) 9 ); // version
+			writer.Write( (int) 10 ); // version
 
             writer.Write((bool) m_Vendored);
 
