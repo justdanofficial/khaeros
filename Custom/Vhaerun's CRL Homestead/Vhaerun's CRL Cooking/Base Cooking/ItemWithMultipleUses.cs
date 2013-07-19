@@ -7,12 +7,12 @@ namespace Khaeros.Scripts.Khaeros.Custom.Vhaerun_s_CRL_Homestead.Vhaerun_s_CRL_C
     {
         private int m_Quantity;
 
-        protected ItemWithMultipleUses(int id) :base(id)
+        public ItemWithMultipleUses(int id) :base(id)
         {
             m_Quantity = 6;
         }
 
-        protected ItemWithMultipleUses(Serial serial) : base(serial)
+        public ItemWithMultipleUses(Serial serial) : base(serial)
         {}
 
         [CommandProperty(AccessLevel.GameMaster)]
