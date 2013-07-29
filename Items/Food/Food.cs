@@ -179,14 +179,22 @@ namespace Server.Items
 		    Vendored = true;
 		    TimeVendored = DateTime.Now;
 		}
-		
+
+        public override void OnPurchased(Mobile vendor, Mobile buyer)
+        {
+            TimeSpan vendored = DateTime.Now.Subtract(TimeVendored);
+            Creation = Creation.Add(vendored);
+            Vendored = false;
+            base.OnPurchased(vendor, buyer);
+        }
+
 		public override void OnRemovedFromSale( Mobile vendor )
 		{
-		    TimeSpan vendored = DateTime.Now.Subtract(TimeVendored);
-		    Creation = Creation.Add(vendored);
-		    Vendored = false;
+            TimeSpan vendored = DateTime.Now.Subtract(TimeVendored);
+            Creation = Creation.Add(vendored);
+            Vendored = false;
 		}
-		
+
 		public virtual void CheckRot()
 		{
 			if( RootParentEntity != null && RootParentEntity is PlayerVendor )
